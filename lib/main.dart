@@ -28,6 +28,7 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   List<WordPair> words = [];
+  Set<WordPair> saved = Set<WordPair>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,19 +43,33 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _getRow(WordPair wordPair) {
+    bool _isAlreadySaved = saved.contains(wordPair);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            wordPair.asCamelCase,
-            textScaleFactor: 1,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
+        ListTile(
+            onTap: () {
+              setState(() {
+                if (_isAlreadySaved) {
+                  saved.remove(wordPair);
+                } else {
+                  saved.add(wordPair);
+                }
+              });
+              print(saved.toString());
+            },
+            title: Text(
+              wordPair.asCamelCase,
+              textScaleFactor: 1,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            trailing: Icon(
+                _isAlreadySaved ? Icons.favorite : Icons.favorite_border,
+                color: Colors.red)),
         Divider(
-          thickness: 1, height: 5, color: Colors.grey[300],
+          thickness: 1,
+          height: 5,
+          color: Colors.grey[300],
           indent: 16,
           endIndent: 16,
         )
