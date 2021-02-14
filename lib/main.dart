@@ -42,13 +42,23 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Widget _getRow(WordPair wordPair) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text(
-        wordPair.asCamelCase,
-        textScaleFactor: 1,
-        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            wordPair.asCamelCase,
+            textScaleFactor: 1,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Divider(
+          thickness: 1, height: 5, color: Colors.grey[300],
+          indent: 16,
+          endIndent: 16,
+        )
+      ],
     );
   }
 }
